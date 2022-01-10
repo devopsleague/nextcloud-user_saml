@@ -142,7 +142,7 @@ class Version5000Date20211025124248 extends SimpleMigrationStep {
 				->andWhere($this->deleteQuery->expr()->in('configkey', $this->deleteQuery->createParameter('cfgKeys')));
 		}
 
-		$deletedRows = $deleteQuery
+		$deletedRows = $this->deleteQuery
 			->setParameter('cfgKeys', $keys, IQueryBuilder::PARAM_STR_ARRAY)
 			->execute();
 
@@ -178,11 +178,11 @@ class Version5000Date20211025124248 extends SimpleMigrationStep {
 			$this->readQuery = $this->dbc->getQueryBuilder();
 			$this->readQuery->select('configkey', 'configvalue')
 				->from('appconfig')
-				->where($this->readQuery->expr()->eq('appid', $readQuery->createNamedParameter('user_saml')))
-				->andWhere($this->readQuery->expr()->in('configkey', $readQuery->createParameter('cfgKeys')));
+				->where($this->readQuery->expr()->eq('appid', $this->readQuery->createNamedParameter('user_saml')))
+				->andWhere($this->readQuery->expr()->in('configkey', $this->readQuery->createParameter('cfgKeys')));
 		}
 
-		$r = $readQuery->setParameter('cfgKeys', $configKeys, IQueryBuilder::PARAM_STR_ARRAY)
+		$r = $this->readQuery->setParameter('cfgKeys', $configKeys, IQueryBuilder::PARAM_STR_ARRAY)
 			->execute();
 
 		while ($row = $r->fetch()) {
