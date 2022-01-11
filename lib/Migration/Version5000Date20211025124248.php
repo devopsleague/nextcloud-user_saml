@@ -131,7 +131,7 @@ class Version5000Date20211025124248 extends SimpleMigrationStep {
 	}
 
 	/**
-	 * @param list<string> $keys the list of keys to delete
+	 * @psalm-param list<string> $keys the list of keys to delete
 	 */
 	protected function deleteOldConfiguration(array $keys): bool {
 		if (!$this->deleteQuery) {
@@ -172,7 +172,7 @@ class Version5000Date20211025124248 extends SimpleMigrationStep {
 		return $insertedRows > 0;
 	}
 
-	/** @param list<string> $configKeys */
+	/** @psalm-param list<string> $configKeys */
 	protected function readConfiguration(array $configKeys): \Generator {
 		if (!$this->readQuery) {
 			$this->readQuery = $this->dbc->getQueryBuilder();
@@ -201,7 +201,7 @@ class Version5000Date20211025124248 extends SimpleMigrationStep {
 		throw new \RuntimeException('Invalid regex pattern');
 	}
 
-	/** @return list<int> */
+	/** @psalm-return list<int> */
 	protected function fetchPrefixes(): array {
 		$q = $this->dbc->getQueryBuilder();
 		$q->select('configvalue')
